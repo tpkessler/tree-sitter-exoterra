@@ -1,0 +1,178 @@
+===
+Escape expression
+===
+
+a = [b]
+
+---
+
+(chunk
+  (assignment_statement
+    (variable_list
+      (identifier))
+    (expression_list
+      (escape_expression
+        (identifier)))))
+
+
+===
+Long empty escape expression
+===
+
+a = escape end
+
+---
+
+(chunk
+  (assignment_statement
+    (variable_list
+      (identifier))
+    (expression_list
+      (escape_expression))))
+
+===
+Long escape expression
+===
+
+a = escape emit quote b end end
+
+---
+
+(chunk
+  (assignment_statement
+    (variable_list
+      (identifier))
+    (expression_list
+      (escape_expression
+        (block
+          (emit_statement
+            (quote_expression
+              (identifier))))))))
+
+===
+Complicated escape expression
+===
+
+var qhalf = escape
+        emit quote
+            -- include one extra point for flux weight dot(v, n)
+            var x, w = (
+                hs:maxwellian(alloc, maxtestdegree + 1, rho, &u, theta)
+            )
+        in
+            range.zip(&x, &w)
+        end
+    end
+
+---
+
+(chunk
+  (terra_var_definition
+    (terra_declaration
+      (identifier))
+    (escape_expression
+      (block
+        (emit_statement
+          (quote_expression
+            (comment
+              (comment_content))
+            (full_quote_statement
+              (block
+                (terra_var_definition
+                  (terra_declaration
+                    (identifier)
+                    (identifier))
+                  (parenthesized_expression
+                    (function_call
+                      (method_index_expression
+                        (identifier)
+                        (identifier))
+                      (arguments
+                        (identifier)
+                        (binary_expression
+                          (identifier)
+                          (number))
+                        (identifier)
+                        (reference
+                          (identifier))
+                        (identifier))))))
+              (function_call
+                (dot_index_expression
+                  (identifier)
+                  (identifier))
+                (arguments
+                  (reference
+                    (identifier))
+                  (reference
+                    (identifier)))))))))))
+
+===
+Short escape statement
+===
+
+[a]
+
+---
+
+(chunk
+  (escape_expression
+    (identifier)))
+
+
+===
+Escape statement
+===
+
+escape a = b end
+
+---
+
+(chunk
+  (escape_statement
+    (block
+      (assignment_statement
+        (variable_list
+          (identifier))
+        (expression_list
+          (identifier))))))
+
+===
+Emit statement
+===
+
+emit quote a end
+
+---
+
+(chunk
+  (emit_statement
+    (quote_expression
+      (identifier))))
+
+===
+Combined escape and emit statement
+===
+
+escape
+  for i = 1, n do
+    emit v[i]
+  end
+end
+
+---
+
+(chunk
+  (escape_statement
+    (block
+      (for_statement
+        (for_numeric_clause
+          (identifier)
+          (number)
+          (identifier))
+        (block
+          (emit_statement
+            (bracket_index_expression
+              (identifier)
+              (identifier))))))))
+
+
