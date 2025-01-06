@@ -1,0 +1,94 @@
+===
+Typed variable declaration
+===
+
+var a: T
+
+---
+
+(chunk
+  (terra_declaration
+  (identifier)
+  (identifier)))
+
+
+===
+Multiple variable declaration
+===
+
+var a: T, b: S
+
+---
+
+(chunk
+  (terra_declaration
+	  (identifier)
+	  (identifier)
+	  (identifier)
+	  (identifier)))
+
+===
+Untyped variable definition
+===
+
+var a = 1
+
+---
+
+(chunk
+  (terra_var_definition
+    (terra_declaration
+      (identifier))
+    (number)))
+
+===
+Typed variable definition
+===
+
+var a: T = 1
+
+---
+
+(chunk
+  (terra_var_definition
+    (terra_declaration
+    (identifier)
+    (identifier))
+    (number)))
+
+===
+Typed multiple variable definition
+===
+
+var a: T, b: S = c, d
+
+---
+
+(chunk
+  (terra_var_definition
+    (terra_declaration
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier))
+    (identifier)
+    (identifier)))
+
+===
+Overloaded call in assignment
+===
+
+x(i, j) = a
+
+---
+
+(chunk
+  (assignment_statement
+    (variable_list
+      (function_call
+        (identifier)
+        (arguments
+          (identifier)
+          (identifier))))
+    (expression_list
+      (identifier))))
