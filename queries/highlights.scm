@@ -22,3 +22,31 @@
   "end"
 ] @keyword)
 
+(type_constraints
+[
+  "where"
+] @keyword)
+
+(terraform_function_definition
+[
+  "terraform"
+  "end"
+] @keyword)
+
+(terraform_function_implementation
+[
+  "terraform"
+  "end"
+] @keyword)
+
+(terraform_function_implementation
+[
+  "terraform"
+  "end"
+] @keyword)
+
+(concept_implementation
+[
+  "concept"
+  "end"
+] @keyword)

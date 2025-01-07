@@ -1,0 +1,329 @@
+===
+Regular concept
+===
+
+concept MyStack
+	Self.methods.length = {&Self} -> Integer
+	Self.methods.get = {&Self, Integer} -> Any
+	Self.methods.set = {&Self, Integer , Any} -> {}
+end
+
+---
+
+(chunk
+  (concept_implementation
+    (identifier)
+    (block
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (dot_index_expression
+              (identifier)
+              (identifier))
+            (identifier)))
+        (expression_list
+          (function_pointer_expression
+            (table_constructor
+              (field
+                (reference
+                  (identifier))))
+            (identifier))))
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (dot_index_expression
+              (identifier)
+              (identifier))
+            (identifier)))
+        (expression_list
+          (function_pointer_expression
+            (table_constructor
+              (field
+                (reference
+                  (identifier)))
+              (field
+                (identifier)))
+            (identifier))))
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (dot_index_expression
+              (identifier)
+              (identifier))
+            (identifier)))
+        (expression_list
+          (function_pointer_expression
+            (table_constructor
+              (field
+                (reference
+                  (identifier)))
+              (field
+                (identifier))
+              (field
+                (identifier)))
+            (table_constructor)))))))
+
+===
+Parametrized concept unconstrained
+===
+
+concept MyStack(T) where {T}
+    Self.methods.length = {&Self} -> Integer
+    Self.methods.get = {&Self, Integer} -> T
+    Self.methods.set = {&Self, Integer , T} -> {}
+end
+
+---
+
+(chunk
+  (concept_implementation
+    (identifier)
+    (identifier)
+    (type_constraints
+      (identifier))
+    (block
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (dot_index_expression
+              (identifier)
+              (identifier))
+            (identifier)))
+        (expression_list
+          (function_pointer_expression
+            (table_constructor
+              (field
+                (reference
+                  (identifier))))
+            (identifier))))
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (dot_index_expression
+              (identifier)
+              (identifier))
+            (identifier)))
+        (expression_list
+          (function_pointer_expression
+            (table_constructor
+              (field
+                (reference
+                  (identifier)))
+              (field
+                (identifier)))
+            (identifier))))
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (dot_index_expression
+              (identifier)
+              (identifier))
+            (identifier)))
+        (expression_list
+          (function_pointer_expression
+            (table_constructor
+              (field
+                (reference
+                  (identifier)))
+              (field
+                (identifier))
+              (field
+                (identifier)))
+            (table_constructor)))))))
+
+===
+Parametrized concept constrained
+===
+
+concept Vector(T) where {T : Number}
+    local S = MyStack(T)
+    Self.methods.fill = {&Self, T} -> {}
+    Self.methods.clear = {&Self} -> {}
+    Self.methods.sum = {&Self} -> T
+    Self.methods.axpy = {&Self, T, &S} -> {}
+    Self.methods.dot = {&Self, &S} -> T
+end
+
+---
+
+(chunk
+  (concept_implementation
+    (identifier)
+    (identifier)
+    (type_constraints
+      (identifier)
+      (identifier))
+    (block
+      (variable_declaration
+        (assignment_statement
+          (variable_list
+            (identifier))
+          (expression_list
+            (function_call
+              (identifier)
+              (arguments
+                (identifier))))))
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (dot_index_expression
+              (identifier)
+              (identifier))
+            (identifier)))
+        (expression_list
+          (function_pointer_expression
+            (table_constructor
+              (field
+                (reference
+                  (identifier)))
+              (field
+                (identifier)))
+            (table_constructor))))
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (dot_index_expression
+              (identifier)
+              (identifier))
+            (identifier)))
+        (expression_list
+          (function_pointer_expression
+            (table_constructor
+              (field
+                (reference
+                  (identifier))))
+            (table_constructor))))
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (dot_index_expression
+              (identifier)
+              (identifier))
+            (identifier)))
+        (expression_list
+          (function_pointer_expression
+            (table_constructor
+              (field
+                (reference
+                  (identifier))))
+            (identifier))))
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (dot_index_expression
+              (identifier)
+              (identifier))
+            (identifier)))
+        (expression_list
+          (function_pointer_expression
+            (table_constructor
+              (field
+                (reference
+                  (identifier)))
+              (field
+                (identifier))
+              (field
+                (reference
+                  (identifier))))
+            (table_constructor))))
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (dot_index_expression
+              (identifier)
+              (identifier))
+            (identifier)))
+        (expression_list
+          (function_pointer_expression
+            (table_constructor
+              (field
+                (reference
+                  (identifier)))
+              (field
+                (reference
+                  (identifier))))
+            (identifier)))))))
+
+===
+Parametrized concepts multiple arguments
+===
+
+concept Matrix(T1, T2) where {T1 : Any, T2 : Any}
+	Self.methods.sum = {&Self} -> {}
+end
+
+---
+
+(chunk
+  (concept_implementation
+    (identifier)
+    (identifier)
+    (identifier)
+    (type_constraints
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier))
+    (block
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (dot_index_expression
+              (identifier)
+              (identifier))
+            (identifier)))
+        (expression_list
+          (function_pointer_expression
+            (table_constructor
+              (field
+                (reference
+                  (identifier))))
+            (table_constructor)))))))
+
+
+===
+Parametrized concepts with compile time values
+===
+
+concept SVec(T, N) where {T : concepts.Float, N : 3}
+	assert(N == 3)
+	Self.methods.cross = {&Self, &Self} -> T
+end
+
+---
+(chunk
+  (concept_implementation
+    (identifier)
+    (identifier)
+    (identifier)
+    (type_constraints
+      (identifier)
+      (dot_index_expression
+        (identifier)
+        (identifier))
+      (identifier)
+      (number))
+    (block
+      (function_call
+        (identifier)
+        (arguments
+          (binary_expression
+            (identifier)
+            (number))))
+      (assignment_statement
+        (variable_list
+          (dot_index_expression
+            (dot_index_expression
+              (identifier)
+              (identifier))
+            (identifier)))
+        (expression_list
+          (function_pointer_expression
+            (table_constructor
+              (field
+                (reference
+                  (identifier)))
+              (field
+                (reference
+                  (identifier))))
+            (identifier)))))))

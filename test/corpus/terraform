@@ -1,0 +1,342 @@
+===
+Empty terraform function
+===
+
+terraform foo()
+
+end
+
+---
+
+(chunk
+  (terraform_function_implementation
+    (identifier)
+    (terraform_function_parameters)))
+
+
+===
+Empty local terraform function
+===
+
+local terraform foo()
+
+end
+
+---
+
+(chunk
+  (terraform_function_implementation
+    (identifier)
+    (terraform_function_parameters)))
+
+===
+Empty terraform function with where clause
+===
+
+terraform foo() where {}
+
+end
+
+---
+
+(chunk
+  (terraform_function_implementation
+    (identifier)
+    (terraform_function_parameters)
+    (type_constraints)))
+
+===
+Terraform with concrete types
+===
+
+terraform foo(a : double, b : double)
+	return a * b + 2
+end
+
+---
+
+(chunk
+  (terraform_function_implementation
+    (identifier)
+    (terraform_function_parameters
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier))
+    (block
+      (return_statement
+        (expression_list
+          (binary_expression
+            (binary_expression
+              (identifier)
+              (identifier))
+            (number)))))))
+
+===
+Terraform function with constraints
+===
+
+terraform foo(a : T, b : T) where {T : Real}
+	return a * b
+end
+
+---
+
+(chunk
+  (terraform_function_implementation
+    (identifier)
+    (terraform_function_parameters
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier))
+    (type_constraints
+      (identifier)
+      (identifier))
+    (block
+      (return_statement
+        (expression_list
+          (binary_expression
+            (identifier)
+            (identifier)))))))
+
+===
+Terraform with reference types
+===
+
+terraform foo(a : &T, b : &T) where {T : Real}
+	return @a * @b
+end
+
+---
+
+(chunk
+  (terraform_function_implementation
+    (identifier)
+    (terraform_function_parameters
+      (identifier)
+      (pointer_type
+        (identifier))
+      (identifier)
+      (pointer_type
+        (identifier)))
+    (type_constraints
+      (identifier)
+      (identifier))
+    (block
+      (return_statement
+        (expression_list
+          (dereference
+            (binary_expression
+              (identifier)
+              (dereference
+                (identifier)))))))))
+
+===
+Terraform duck typing
+===
+
+terraform foo(a, b)
+	return a * b + 1
+end
+
+---
+
+(chunk
+  (terraform_function_implementation
+    (identifier)
+    (terraform_function_parameters
+      (identifier)
+      (identifier))
+    (block
+      (return_statement
+        (expression_list
+          (binary_expression
+            (binary_expression
+              (identifier)
+              (identifier))
+            (number)))))))
+
+===
+Terraform varargs
+===
+
+terraform foo(args ...)
+	var res = 1
+    escape
+	    for i,v in ipairs(args.type.entries) do
+	        local s = "_" .. tostring(i-1)
+	        emit quote
+	            res = res * args.[s] 
+	        end
+	    end
+    end
+    return res
+end
+
+---
+
+(chunk
+  (terraform_function_implementation
+    (identifier)
+    (terraform_function_parameters
+      (terraform_vararg_expression
+        (identifier)
+        (vararg_expression)))
+    (block
+      (terra_var_definition
+        (terra_declaration
+          (identifier))
+        (number))
+      (escape_statement
+        (block
+          (for_statement
+            (for_generic_clause
+              (variable_list
+                (identifier)
+                (identifier))
+              (expression_list
+                (function_call
+                  (identifier)
+                  (arguments
+                    (dot_index_expression
+                      (dot_index_expression
+                        (identifier)
+                        (identifier))
+                      (identifier))))))
+            (block
+              (variable_declaration
+                (assignment_statement
+                  (variable_list
+                    (identifier))
+                  (expression_list
+                    (binary_expression
+                      (string
+                        (string_content))
+                      (function_call
+                        (identifier)
+                        (arguments
+                          (binary_expression
+                            (identifier)
+                            (number))))))))
+              (emit_statement
+                (quote_expression
+                  (assignment_statement
+                    (variable_list
+                      (identifier))
+                    (expression_list
+                      (binary_expression
+                        (identifier)
+                        (dot_index_expression
+                          (identifier)
+                          (escape_expression
+                            (identifier))))))))))))
+      (return_statement
+        (expression_list
+          (identifier))))))
+
+===
+Terraform nested name spaces
+===
+
+terraform ns.bar.foo(a : T, b : T) where {T : ns.bar.Float}
+	return a * b
+end
+
+---
+
+(chunk
+  (terraform_function_implementation
+    (dot_index_expression
+      (dot_index_expression
+        (identifier)
+        (identifier))
+      (identifier))
+    (terraform_function_parameters
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier))
+    (type_constraints
+      (identifier)
+      (dot_index_expression
+        (dot_index_expression
+          (identifier)
+          (identifier))
+        (identifier)))
+    (block
+      (return_statement
+        (expression_list
+          (binary_expression
+            (identifier)
+            (identifier)))))))
+
+===
+Terraform struct methods
+===
+
+terraform bar:foo(a, b)
+	return a * b + self.index
+end
+
+---
+
+(chunk
+  (terraform_function_implementation
+    (method_index_expression
+      (identifier)
+      (identifier))
+    (terraform_function_parameters
+      (identifier)
+      (identifier))
+    (block
+      (return_statement
+        (expression_list
+          (binary_expression
+            (binary_expression
+              (identifier)
+              (identifier))
+            (dot_index_expression
+              (identifier)
+              (identifier))))))))
+
+===
+Terraform all mixed
+===
+
+terraform bar:foo(a : T1, b : T2) where {T1 : foo.Float, T2}
+	return a * b + 1 + self.index
+end
+
+---
+
+(chunk
+  (terraform_function_implementation
+    (method_index_expression
+      (identifier)
+      (identifier))
+    (terraform_function_parameters
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier))
+    (type_constraints
+      (identifier)
+      (dot_index_expression
+        (identifier)
+        (identifier))
+      (identifier))
+    (block
+      (return_statement
+        (expression_list
+          (binary_expression
+            (binary_expression
+              (binary_expression
+                (identifier)
+                (identifier))
+              (number))
+            (dot_index_expression
+              (identifier)
+              (identifier))))))))
+
+

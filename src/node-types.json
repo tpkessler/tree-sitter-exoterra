@@ -4,6 +4,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "concept_implementation",
+        "named": true
+      },
+      {
         "type": "function_declaration",
         "named": true
       },
@@ -29,6 +33,10 @@
       },
       {
         "type": "terra_var_definition",
+        "named": true
+      },
+      {
+        "type": "terraform_function_implementation",
         "named": true
       },
       {
@@ -111,6 +119,10 @@
       },
       {
         "type": "terra_function_definition",
+        "named": true
+      },
+      {
+        "type": "terraform_function_definition",
         "named": true
       },
       {
@@ -449,6 +461,76 @@
           {
             "type": "[[",
             "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "concept_implementation",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      },
+      "concepts": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_constraints",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dot_index_expression",
+            "named": true
+          },
+          {
+            "type": "escape_expression",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "method_index_expression",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "expression",
+            "named": true
           }
         ]
       }
@@ -1733,6 +1815,198 @@
     }
   },
   {
+    "type": "terraform_function_definition",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      },
+      "concepts": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_constraints",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "terraform_function_parameters",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "terraform_function_implementation",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "block",
+            "named": true
+          }
+        ]
+      },
+      "concepts": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_constraints",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "dot_index_expression",
+            "named": true
+          },
+          {
+            "type": "escape_expression",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "method_index_expression",
+            "named": true
+          }
+        ]
+      },
+      "parameters": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "terraform_function_parameters",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "terraform_function_parameters",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "escape_expression",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "binary_expression",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expression",
+            "named": true
+          },
+          {
+            "type": "pointer_type",
+            "named": true
+          },
+          {
+            "type": "primitive_type",
+            "named": true
+          },
+          {
+            "type": "table_constructor",
+            "named": true
+          },
+          {
+            "type": "unary_expression",
+            "named": true
+          },
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "terraform_vararg_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "terraform_vararg_expression",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "vararg_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "test_statement",
     "named": true,
     "fields": {},
@@ -1814,6 +2088,53 @@
       "types": [
         {
           "type": "arguments",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_constraints",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "pointer_type",
+          "named": true
+        },
+        {
+          "type": "primitive_type",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "table_constructor",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "variable",
           "named": true
         }
       ]
@@ -2123,6 +2444,10 @@
     "named": true
   },
   {
+    "type": "concept",
+    "named": false
+  },
+  {
     "type": "defer",
     "named": false
   },
@@ -2235,6 +2560,10 @@
     "named": false
   },
   {
+    "type": "terraform",
+    "named": false
+  },
+  {
     "type": "test",
     "named": false
   },
@@ -2269,6 +2598,10 @@
   {
     "type": "vararg_expression",
     "named": true
+  },
+  {
+    "type": "where",
+    "named": false
   },
   {
     "type": "while",

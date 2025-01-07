@@ -838,91 +838,122 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "function_declaration"
-            },
-            {
-              "type": "FIELD",
-              "name": "local_declaration",
-              "content": {
-                "type": "ALIAS",
-                "content": {
+              "type": "CHOICE",
+              "members": [
+                {
                   "type": "SYMBOL",
-                  "name": "_local_function_declaration"
+                  "name": "function_declaration"
                 },
-                "named": true,
-                "value": "function_declaration"
-              }
+                {
+                  "type": "FIELD",
+                  "name": "local_declaration",
+                  "content": {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_local_function_declaration"
+                    },
+                    "named": true,
+                    "value": "function_declaration"
+                  }
+                },
+                {
+                  "type": "FIELD",
+                  "name": "local_declaration",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "variable_declaration"
+                  }
+                }
+              ]
             },
             {
-              "type": "FIELD",
-              "name": "local_declaration",
+              "type": "SYMBOL",
+              "name": "terra_declaration"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "terra_var_definition"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "terra_function_declaration"
+            },
+            {
+              "type": "ALIAS",
               "content": {
                 "type": "SYMBOL",
-                "name": "variable_declaration"
-              }
+                "name": "_local_terra_function_declaration"
+              },
+              "named": true,
+              "value": "terra_function_declaration"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "struct_declaration"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_local_struct_declaration"
+              },
+              "named": true,
+              "value": "struct_declaration"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "terra_function_implementation"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_local_terra_function_implementation"
+              },
+              "named": true,
+              "value": "terra_function_implementation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "struct_definition"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_local_struct_definition"
+              },
+              "named": true,
+              "value": "struct_definition"
             }
           ]
         },
         {
           "type": "SYMBOL",
-          "name": "terra_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "terra_var_definition"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "terra_function_declaration"
+          "name": "terraform_function_implementation"
         },
         {
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
-            "name": "_local_terra_function_declaration"
+            "name": "_local_terraform_function_implementation"
           },
           "named": true,
-          "value": "terra_function_declaration"
+          "value": "terraform_function_implementation"
         },
         {
           "type": "SYMBOL",
-          "name": "struct_declaration"
+          "name": "concept_implementation"
         },
         {
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
-            "name": "_local_struct_declaration"
+            "name": "_local_concept_implementation"
           },
           "named": true,
-          "value": "struct_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "terra_function_implementation"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_local_terra_function_implementation"
-          },
-          "named": true,
-          "value": "terra_function_implementation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "struct_definition"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_local_struct_definition"
-          },
-          "named": true,
-          "value": "struct_definition"
+          "value": "concept_implementation"
         }
       ]
     },
@@ -1284,108 +1315,117 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "nil"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "nil"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "false"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "true"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "number"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "string"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "vararg_expression"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "function_definition"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "variable"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "function_call"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "parenthesized_expression"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "table_constructor"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "binary_expression"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "unary_expression"
+                }
+              ]
             },
             {
               "type": "SYMBOL",
-              "name": "false"
+              "name": "reference"
             },
             {
               "type": "SYMBOL",
-              "name": "true"
+              "name": "dereference"
             },
             {
               "type": "SYMBOL",
-              "name": "number"
+              "name": "primitive_type"
             },
             {
               "type": "SYMBOL",
-              "name": "string"
+              "name": "quote_expression"
             },
             {
               "type": "SYMBOL",
-              "name": "vararg_expression"
+              "name": "short_quote_expression"
             },
             {
               "type": "SYMBOL",
-              "name": "function_definition"
+              "name": "escape_expression"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "escape_statement"
+              },
+              "named": true,
+              "value": "escape_expression"
             },
             {
               "type": "SYMBOL",
-              "name": "variable"
+              "name": "function_pointer_expression"
             },
             {
               "type": "SYMBOL",
-              "name": "function_call"
+              "name": "terra_function_definition"
             },
             {
-              "type": "SYMBOL",
-              "name": "parenthesized_expression"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "table_constructor"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "binary_expression"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "unary_expression"
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "anon_struct_definition"
+              },
+              "named": true,
+              "value": "struct_definition"
             }
           ]
         },
         {
           "type": "SYMBOL",
-          "name": "reference"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "dereference"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "primitive_type"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "quote_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "short_quote_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "escape_expression"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "escape_statement"
-          },
-          "named": true,
-          "value": "escape_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "function_pointer_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "terra_function_definition"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "anon_struct_definition"
-          },
-          "named": true,
-          "value": "struct_definition"
+          "name": "terraform_function_definition"
         }
       ]
     },
@@ -4505,6 +4545,566 @@
         {
           "type": "STRING",
           "value": "end"
+        }
+      ]
+    },
+    "terraform_function_definition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "terraform"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_terraform_function_body"
+        }
+      ]
+    },
+    "terraform_function_implementation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "terraform"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_function_name"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_terraform_function_body"
+        }
+      ]
+    },
+    "_local_terraform_function_implementation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "local"
+        },
+        {
+          "type": "STRING",
+          "value": "terraform"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "escape_expression"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_terraform_function_body"
+        }
+      ]
+    },
+    "_terraform_function_body": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "parameters",
+          "content": {
+            "type": "SYMBOL",
+            "name": "terraform_function_parameters"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "concepts",
+              "content": {
+                "type": "SYMBOL",
+                "name": "type_constraints"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_block"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            "named": true,
+            "value": "block"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "end"
+        }
+      ]
+    },
+    "terraform_function_parameters": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_terraform_parameter_list"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "type_constraints": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "where"
+        },
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_constrained_types_list"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "_terraform_parameter_list": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_typed_declaration"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "escape_expression"
+                    }
+                  ]
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "_typed_declaration"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "identifier"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "escape_expression"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": ","
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "terraform_vararg_expression"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "terraform_vararg_expression"
+        }
+      ]
+    },
+    "terraform_vararg_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "vararg_expression"
+        }
+      ]
+    },
+    "_constrained_types_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "string"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "number"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_type_specifier"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "identifier"
+                  },
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "identifier"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": ":"
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "string"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "number"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "_type_specifier"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "concept_implementation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "concept"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_function_name"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_concept_body"
+        }
+      ]
+    },
+    "_local_concept_implementation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "local"
+        },
+        {
+          "type": "STRING",
+          "value": "concept"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "escape_expression"
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_concept_body"
+        }
+      ]
+    },
+    "_regular_concept_body": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_block"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            "named": true,
+            "value": "block"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "end"
+        }
+      ]
+    },
+    "_parametrized_concept_body": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "parameters",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "("
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "expression"
+                      },
+                      {
+                        "type": "REPEAT",
+                        "content": {
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "STRING",
+                              "value": ","
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "expression"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "STRING",
+                "value": ")"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "concepts",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_constraints"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_block"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            "named": true,
+            "value": "block"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "end"
+        }
+      ]
+    },
+    "_concept_body": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_regular_concept_body"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_parametrized_concept_body"
         }
       ]
     }
