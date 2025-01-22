@@ -2221,6 +2221,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "dereference"
+        },
+        {
+          "type": "SYMBOL",
           "name": "escape_expression"
         }
       ]
