@@ -150,6 +150,14 @@
             },
             {
               "type": "SYMBOL",
+              "name": "goto_statement"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "label_statement"
+            },
+            {
+              "type": "SYMBOL",
               "name": "defer_statement"
             },
             {
@@ -320,19 +328,41 @@
       ]
     },
     "label_statement": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "::"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "::"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "STRING",
+              "value": "::"
+            }
+          ]
         },
         {
-          "type": "SYMBOL",
-          "name": "identifier"
-        },
-        {
-          "type": "STRING",
-          "value": "::"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "::"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "escape_expression"
+            },
+            {
+              "type": "STRING",
+              "value": "::"
+            }
+          ]
         }
       ]
     },
@@ -341,15 +371,33 @@
       "value": "break"
     },
     "goto_statement": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "goto"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "goto"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          ]
         },
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "goto"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "escape_expression"
+            }
+          ]
         }
       ]
     },
@@ -5174,5 +5222,6 @@
     "expression",
     "declaration",
     "variable"
-  ]
+  ],
+  "reserved": {}
 }
